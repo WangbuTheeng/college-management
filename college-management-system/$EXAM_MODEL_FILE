@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Exam extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['course_id', 'name', 'total_marks'];
+    // protected $fillable = ['class_id', 'name', 'total_marks']; // If exam is per class
+
+    protected $casts = [
+        'total_marks' => 'decimal:2',
+    ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    // public function classe() // If exam is per class
+    // {
+    //     return $this->belongsTo(Classe::class, 'class_id');
+    // }
+
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
+}

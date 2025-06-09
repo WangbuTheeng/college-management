@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Classe extends Model // Renamed to Classe
+{
+    use HasFactory;
+
+    protected $table = 'classes'; // Explicitly define table name
+
+    protected $fillable = ['name', 'course_id', 'academic_year_id', 'teacher_id'];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function academicYear()
+    {
+        return $this->belongsTo(AcademicYear::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id'); // Assuming teacher is a User
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+}
